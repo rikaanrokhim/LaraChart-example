@@ -10,13 +10,12 @@ class ChartController extends Controller
 {
     public function index()
     {
-        $list = Visitor::all();
-
-        $chart = Charts::database('bar', 'highcharts')
-                ->elementLabel("Total")
-                ->dimensions(1000, 500)
-                ->responsive(false)
-                ->groupBy('days');
+        $chart = Charts::database(Visitor::all(), 'bar', 'highcharts')
+            ->colors(['#ff0000', '#00ff00', '#0000ff'])
+            ->elementLabel("Total")
+            ->dimensions(500, 500)
+            ->responsive(false)
+            ->lastByMonth(6, true);
 
         return view('chart', ['chart' => $chart]);
     }
